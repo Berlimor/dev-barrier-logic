@@ -32,6 +32,6 @@ async def stream_status(request: Request) -> EventSourceResponse:
 
     return EventSourceResponse(generator())
 
-@app.get("/feecc-barrier-logic/stream")
+@app.get("/feecc-barrier-logic/force-open")
 def force_open() -> Response:
     return Response(status_code=200)
