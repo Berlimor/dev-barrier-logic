@@ -16,7 +16,7 @@ app.add_middleware(
 )
 
 
-@app.get("/stream")
+@app.get("/feecc-barrier-logic/stream")
 async def stream_status(request: Request) -> EventSourceResponse:
     async def generator():
         while True:
@@ -31,3 +31,7 @@ async def stream_status(request: Request) -> EventSourceResponse:
             asyncio.sleep(5)
 
     return EventSourceResponse(generator())
+
+@app.get("/feecc-barrier-logic/stream")
+def force_open() -> Response:
+    return Response(status_code=200)

@@ -10,7 +10,7 @@ docker-compose up --build -d
 ____
 ### Endpoints
 
-##### /stream
+##### /feecc-barrier-logic/stream
 SSE stream which returns json data once every 5 seconds.
 ```json
 {
@@ -18,3 +18,6 @@ SSE stream which returns json data once every 5 seconds.
     "reason": "Status should be 'Used in 1c', not Weighted."
 }
 ```
+
+##### /feecc-barrier-logic/force-open
+Dummy endpoint, returns with status code 200.
