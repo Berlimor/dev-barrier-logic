@@ -5,6 +5,7 @@ from loguru import logger
 
 import asyncio
 
+COUNTER: int = 0
 
 app = FastAPI(title="Feecc-barrier-logic")
 app.add_middleware(
@@ -20,15 +21,21 @@ app.add_middleware(
 async def stream_status(request: Request) -> EventSourceResponse:
     async def generator():
         while True:
-            if request.is_disconnected():
+            if await request.is_disconnected():
                 logger.warning("Client has ended the connection.")
                 break
-
             yield {
-                "license_plate": "A123BC",
-                "reason": "Status should be 'Used in 1c', not Weighted.",
+                "data": {
+                    "license_plate": "A123BC",
+                    "reason": "Status should be 'Used in 1c', not Weighted.",
+                }
             }
-            asyncio.sleep(5)
+            global COUNTER
+            COUNTER += 1
+            if COUNTER > 5:
+                break
+
+            await asyncio.sleep(1)
 
     return EventSourceResponse(generator())
 

@@ -13,7 +13,7 @@ ____
 ##### /feecc-barrier-logic/stream
 SSE stream which returns json data once every 5 seconds.
 ```json
-{
+"data": {
     "license_plate": "A123BC",
     "reason": "Status should be 'Used in 1c', not Weighted."
 }
