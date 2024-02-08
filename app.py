@@ -2,10 +2,10 @@ from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from sse_starlette.sse import EventSourceResponse
 from loguru import logger
+import random
 
 import asyncio
 
-COUNTER: int = 0
 
 app = FastAPI(title="Feecc-barrier-logic")
 app.add_middleware(
@@ -24,18 +24,15 @@ async def stream_status(request: Request) -> EventSourceResponse:
             if await request.is_disconnected():
                 logger.warning("Client has ended the connection.")
                 break
+            num = round(random.random()*1000)
             yield {
                 "data": {
-                    "license_plate": "A123BC",
+                    "license_plate": f"A{num}BC",
                     "reason": "Status should be 'Used in 1c', not Weighted.",
                 }
             }
-            global COUNTER
-            COUNTER += 1
-            if COUNTER > 5:
-                break
 
-            await asyncio.sleep(1)
+            await asyncio.sleep(5)
 
     return EventSourceResponse(generator())
 
