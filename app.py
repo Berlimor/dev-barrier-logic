@@ -28,7 +28,7 @@ async def stream_status(request: Request) -> EventSourceResponse:
             yield {
                 "data": {
                     "license_plate": f"A{num}BC",
-                    "reason": "Status should be 'Used in 1c', not Weighted.",
+                    "reason": "Статус авто должен быть <Used in 1c>, а не <Weighted>",
                 }
             }
 
